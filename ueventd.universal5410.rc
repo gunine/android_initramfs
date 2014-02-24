@@ -87,3 +87,21 @@
 
 # Secure MEM driver
 /dev/s5p-smem             0660   system     system
+
+# NFC
+/dev/bcm2079x          0600   nfc     nfc
+/dev/pn547            0600    nfc    nfc
+
+# Mobicore
+/dev/mobicore         0700    system    system
+/dev/mobicore-user           0666    radio    system
+/dev/s5p-smem         0660    system    system
+
+# Vibtonz
+/dev/tspdrv        0660    vibe    vibe
+
+# Bluetooth
+/dev/ttySAC0        0600    bluetooth   bluetooth
+
+# BTlock
+/dev/btlock        0600    bluetooth bluetooth
