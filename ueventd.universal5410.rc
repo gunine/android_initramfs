@@ -105,3 +105,6 @@
 
 # BTlock
 /dev/btlock        0600    bluetooth bluetooth
+
+# DMB
+/dev/tdmb        0660    system    system

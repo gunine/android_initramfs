@@ -476,10 +476,6 @@ on fs
     chown system system /persdata/absolute
     chmod 0750 /persdata/absolute
 
-# tdmb
-    chown system system /dev/tdmb
-    chmod 0660 /dev/tdmb
-
 # FingerPrint_sensor
     chown system system /sys/class/fingerprint/fingerprint/ocp_check
 
