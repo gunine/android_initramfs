@@ -127,8 +127,6 @@ on boot
     chmod 0222 /sys/kernel/debug/tracing/trace_marker
     write /sys/kernel/debug/tracing/tracing_on 0
 
-    chmod 0666 /dev/pvrsrvkm
-
 # Permissions for TouchScreen
     chown system radio /sys/class/sec/tsp/cmd
     chown system system /sys/class/input/input1/enabled
@@ -217,7 +215,6 @@ on fs
     chown system radio /sys/class/sensors/barometer_sensor/name
     chown system radio /sys/class/sensors/barometer_sensor/calibration
 # Magnetic_sensor
-    chown system radio /dev/akm8963
     chown system radio /sys/class/sensors/magnetic_sensor/raw_data
     chown system radio /sys/class/sensors/magnetic_sensor/vendor
     chown system radio /sys/class/sensors/magnetic_sensor/name
@@ -356,10 +353,6 @@ on fs
     chmod 0664 /sys/devices/system/cpu/cpufreq/ondemand/sampling_down_factor
 
 # Core Control
-    chown radio system /dev/b.L_operator
-    chmod 0660 /dev/b.L_operator
-    chown radio system /dev/bL_status
-    chmod 0660 /dev/bL_status
     chown radio system /sys/devices/system/cpu/cpu0/cpuidle/state1/disable
     chown radio system /sys/devices/system/cpu/cpu1/cpuidle/state1/disable
     chown radio system /sys/devices/system/cpu/cpu2/cpuidle/state1/disable
@@ -388,17 +381,6 @@ on fs
 # Permissions for usb_lock
     chown system radio /sys/class/sec/switch/.usb_lock/enable
 
-# for datarouter
-    chown system system /dev/dun
-    chown system system /dev/ttyGS0
-    chown system system /dev/ttyGS1
-    chown system system /dev/ttyGS2
-    chown system system /dev/ttyGS3
-
-# MTP device permission
-    chmod 0660 /dev/usb_mtp_gadget
-    chown system system /dev/usb_mtp_gadget
-
     chown system system /sys/class/timed_output/vibrator/enable
 
 # NFC
@@ -411,8 +393,6 @@ on fs
     chown nfc nfc /data/bcmnfc
     chown nfc nfc /data/bcmnfc/param
 # GPS
-    chown root system /dev/ttySAC1
-    chmod 0660 /dev/ttySAC1
     chown root system /sys/class/sec/gps/GPS_PWR_EN/value
     chmod 0664 /sys/class/sec/gps/GPS_PWR_EN/value
     mkdir /data/system 0771 system system

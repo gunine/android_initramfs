@@ -65,6 +65,7 @@
 /dev/ssp_sensorhub		  0660	 system     system
 
 /dev/ttySAC*	          0660	 root	 system
+/dev/ttyGS*	        0600    system    system
 
 /dev/block/mmcblk0p8      0660   system     root
 /dev/block/mmcblk0p13     0660   system     radio
@@ -77,6 +78,10 @@
 /dev/hsic*                0660   system     radio
 /dev/usb/lp*              0660   system     usb
 /dev/diag                 0660   system     radio
+
+# Core Control
+/dev/b.L_operator        0660    radio    system
+/dev/bL_status        0660    radio    system
 
 #ALP Audio
 /dev/srp                  0660   system     audio
@@ -95,16 +100,19 @@
 # Mobicore
 /dev/mobicore         0700    system    system
 /dev/mobicore-user           0666    radio    system
-/dev/s5p-smem         0660    system    system
 
 # Vibtonz
 /dev/tspdrv        0660    vibe    vibe
 
 # Bluetooth
-/dev/ttySAC0        0600    bluetooth   bluetooth
-
-# BTlock
-/dev/btlock        0600    bluetooth bluetooth
+/dev/ttySAC0        0600    bluetooth    bluetooth
+/dev/btlock        0600    bluetooth    bluetooth
 
 # DMB
 /dev/tdmb        0660    system    system
+
+# Magnetic_Sensor
+/dev/akm8963        0600    system    radio
+
+# MTP
+/dev/usb_mtp_gadget        0660    system    system
