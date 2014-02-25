@@ -626,12 +626,6 @@ on post-fs-data
     chown radio system /efs/security
     chmod 0771 /efs/security
 
-# To reduce power consumption when setupwizard is running
-on property:persist.sys.setupwizard=START
-    write /sys/power/cpufreq_max_limit 1000000
-
-on property:persist.sys.setupwizard=FINISH
-    write /sys/power/cpufreq_max_limit 1600000
 # SecEDS
 service TvoutService_C /system/bin/bintvoutservice
      class main
