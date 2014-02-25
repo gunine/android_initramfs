@@ -371,10 +371,6 @@ on boot
     hostname localhost
     domainname localdomain
 
-# Vibetonz
-    chmod 0660 /dev/tspdrv
-    chown vibe vibe /dev/tspdrv
-
 # set RLIMIT_NICE to allow priorities from 19 to -20
     setrlimit 13 40 40
 
@@ -483,8 +479,6 @@ on boot
    chown system radio /sys/class/power_supply/battery/lte
 
 # NFC_BROADCOM
-    chmod 0600 /dev/bcm2079x
-    chown nfc nfc /dev/bcm2079x
     mkdir /data/bcmnfc
     mkdir /data/bcmnfc/param
     chmod 0700 /data/bcmnfc
