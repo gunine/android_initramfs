@@ -11,8 +11,6 @@ on init
     mkdir /mnt/media_rw/UsbDriveE 0700 media_rw media_rw
     mkdir /mnt/media_rw/UsbDriveF 0700 media_rw media_rw
 
-    mkdir /tombstones
-
     # See storage config details at http://source.android.com/tech/storage/
     mkdir /mnt/shell/emulated 0700 shell shell
     mkdir /storage/emulated 0555 root root
@@ -94,7 +92,6 @@ on post-fs-data
 
 on boot
     mount debugfs /sys/kernel/debug /sys/kernel/debug
-    # setprop ro.radio.noril yes
 
     # Reduce reserved lowmem from ~48MB to ~12MB
     write /proc/sys/vm/lowmem_reserve_ratio "128 128"
@@ -137,25 +134,6 @@ on boot
 
 # mobicore
     mkdir /data/app/mcRegistry 0775 system system
-
-# LGT contents directory
-    mkdir /data/data/com.ubivelox.wipiplayer/W 0770 system lgt_gid
-    mkdir /data/LGTContents 0770 system lgt_gid
-    mkdir /data/LGTContents/video 0770 system lgt_gid
-    mkdir /data/LGTContents/music 0770 system lgt_gid
-    mkdir /data/LGTContents/bell 0770 system lgt_gid
-    mkdir /data/LGTContents/app 0770 system lgt_gid
-    mkdir /data/LGTContents/DLtmp 0770 system lgt_gid
-    mkdir /data/LGTContents/ringforme 0770 system lgt_gid
-
-    chown system lgt_gid /data/data/com.ubivelox.wipiplayer/W
-    chown system lgt_gid /data/LGTContents
-    chown system lgt_gid /data/LGTContents/video
-    chown system lgt_gid /data/LGTContents/music
-    chown system lgt_gid /data/LGTContents/bell
-    chown system lgt_gid /data/LGTContents/app
-    chown system lgt_gid /data/LGTContents/DLtmp
-    chown system lgt_gid /data/LGTContents/ringforme
 
 # reset_reason
     chown system system /proc/reset_reason
@@ -302,42 +280,6 @@ on fs
     chown radio system /sys/class/devfreq/exynos5-busfreq-int/en_monitoring
     chmod 0664 /sys/class/devfreq/exynos5-busfreq-mif/en_monitoring
     chmod 0664 /sys/class/devfreq/exynos5-busfreq-int/en_monitoring
-
-#MDM requirement
-    mkdir /data/cp_log
-    chmod 0775 /data/cp_log
-    chown system radio /data/cp_log
-
-    mkdir /dev/block/modem
-    symlink /dev/block/platform/dw_mmc.0/by-name/m9kefs1 /dev/block/modem/m9kefs1
-    symlink /dev/block/platform/dw_mmc.0/by-name/m9kefs2 /dev/block/modem/m9kefs2
-    symlink /dev/block/platform/dw_mmc.0/by-name/m9kefs3 /dev/block/modem/m9kefs3
-    symlink /dev/block/platform/dw_mmc.0/by-name/ /dev/block/modem/dump_path
-    chown system radio /dev/block/modem/m9kefs1
-    chmod 0775 /dev/block/modem/m9kefs1
-    chown system radio /dev/block/modem/m9kefs2
-    chmod 0775 /dev/block/modem/m9kefs2
-    chown system radio /dev/block/modem/m9kefs3
-    chmod 0775 /dev/block/modem/m9kefs3
-    chown system radio /dev/block/modem/dump_path
-    chmod 0775 /dev/block/modem/dump_path
-
-    mkdir /firmware 0771 system system
-    mount vfat /dev/block/mmcblk0p13 /firmware ro shortname=lower fmask=0133,dmask=0022
-    chown system system /tombstones
-    chmod 0775 /tombstones
-    restorecon -R /tombstones
-    mkdir /tombstones/modem 0775 system system
-    mkdir /tombstones/lpass 0775 system system
-    mkdir /tombstones/wcnss 0775 system system
-    mkdir /tombstones/dsps 0775 system system
-    rmdir /tombstones/qcks
-    mkdir /tombstones/qcks 771 system system
-    rmdir /tombstones/efs
-    mkdir /tombstones/efs 771 system system
-
-    chown system radio /dev/block/platform/dw_mmc.0/by-name
-    chmod 0775 /dev/block/platform/dw_mmc.0/by-name
 
 # SSRM
     chown radio system /sys/class/lcd/panel/siop_enable
@@ -658,10 +600,6 @@ service TvoutService_C /system/bin/bintvoutservice
      group graphics
 on property:ro.SecEDS.enable=false
     stop TvoutService_C
-
-# for LGU I-WLAN
-on property:sys.mobicoredaemon.enable=true
-    insmod /lib/modules/mwlan_aarp.ko
 
 # RTCC INIT
 service rtccd /system/bin/rtccd2 -a 500M
