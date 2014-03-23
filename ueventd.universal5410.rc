@@ -115,4 +115,4 @@
 /dev/akm8963        0600    system    radio
 
 # MTP
-/dev/usb_mtp_gadget        0660    system    system
+/dev/usb_mtp_gadget        0660    system    mtp
