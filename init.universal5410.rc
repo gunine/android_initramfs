@@ -510,13 +510,6 @@ service dmb /system/bin/dmbserver
     user system
     group radio inet misc audio camera graphics net_bt net_bt_admin sdcard_rw sdcard_r shell
 
-# SA, System SW, SAMSUNG
-service bugreport /system/bin/bugmailer.sh -v
-    class main
-    disabled
-    oneshot
-    keycodes 114 115 116
-
 # bootchecker
 service bootchecker /system/bin/bootchecker
     class late_start
