@@ -885,6 +885,3 @@ service iprenew_bt-pan /system/bin/dhcpcd -n
     disabled
     oneshot
 # end of BT
-
-on property:sys.boot_completed=1
-    write /sys/block/mmcblk0/queue/scheduler cfq
