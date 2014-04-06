@@ -1,5 +1,5 @@
 import init.universal5410.usb.rc
-import init.wifi.rc
+import init.universal5410.wifi.rc
 
 on init
     # See storage config details at http://source.android.com/tech/storage/
@@ -10,7 +10,7 @@ on init
     mkdir /mnt/media_rw/UsbDriveD 0700 media_rw media_rw
     mkdir /mnt/media_rw/UsbDriveE 0700 media_rw media_rw
     mkdir /mnt/media_rw/UsbDriveF 0700 media_rw media_rw
-
+    
     # See storage config details at http://source.android.com/tech/storage/
     mkdir /mnt/shell/emulated 0700 shell shell
     mkdir /storage/emulated 0555 root root
@@ -533,13 +533,6 @@ service dmb /system/bin/dmbserver
     user system
     group radio inet misc audio camera graphics net_bt net_bt_admin sdcard_rw sdcard_r shell
 
-# SA, System SW, SAMSUNG
-service bugreport /system/bin/bugmailer.sh -v
-    class main
-    disabled
-    oneshot
-    keycodes 114 115 116
-
 # bootchecker
 service bootchecker /system/bin/bootchecker
     class late_start
@@ -579,8 +572,10 @@ on property:ro.debuggable=1
 # LPM
 on property:ro.bootmode=charger
     mount ext4 /dev/block/mmcblk0p20 /system wait ro
-
-on property:ro.bootmode=charger
+    write /sys/devices/system/cpu/cpu1/online 0
+    write /sys/devices/system/cpu/cpu2/online 0
+    write /sys/devices/system/cpu/cpu3/online 0
+    write /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor powersave
     class_start sec-charger
 
 service playlpm /system/bin/lpm
