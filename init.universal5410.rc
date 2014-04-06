@@ -1,5 +1,5 @@
 import init.universal5410.usb.rc
-import init.wifi.rc
+import init.universal5410.wifi.rc
 
 on init
     # See storage config details at http://source.android.com/tech/storage/
@@ -78,7 +78,6 @@ on post-fs-data
 
     mkdir /data/misc/radio 0775 radio system
     mkdir /efs/imei 0775 radio system
-    
 
     # Added for TZ Playready DRM Support
     mkdir /efs/drm 0700 drm system
@@ -93,7 +92,6 @@ on post-fs-data
 
 on boot
     mount debugfs /sys/kernel/debug /sys/kernel/debug
-    # setprop ro.radio.noril yes
 
     # Reduce reserved lowmem from ~48MB to ~12MB
     write /proc/sys/vm/lowmem_reserve_ratio "128 128"
@@ -512,13 +510,6 @@ service dmb /system/bin/dmbserver
     user system
     group radio inet misc audio camera graphics net_bt net_bt_admin sdcard_rw sdcard_r shell
 
-# SA, System SW, SAMSUNG
-service bugreport /system/bin/bugmailer.sh -v
-    class main
-    disabled
-    oneshot
-    keycodes 114 115 116
-
 # bootchecker
 service bootchecker /system/bin/bootchecker
     class late_start
@@ -558,8 +549,10 @@ on property:ro.debuggable=1
 # LPM
 on property:ro.bootmode=charger
     mount ext4 /dev/block/mmcblk0p20 /system wait ro
-
-on property:ro.bootmode=charger
+    write /sys/devices/system/cpu/cpu1/online 0
+    write /sys/devices/system/cpu/cpu2/online 0
+    write /sys/devices/system/cpu/cpu3/online 0
+    write /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor powersave
     class_start sec-charger
 
 service playlpm /system/bin/lpm

@@ -340,10 +340,6 @@ on post-fs-data
     restorecon -R /efs
 #]
 
-    # MTP permission
-    chmod 0660 /dev/usb_mtp_gadget
-    chown system mtp /dev/usb_mtp_gadget
-
     # symlink to bugreport storage location
     symlink /data/data/com.android.shell/files/bugreports /data/bugreports
 
@@ -877,18 +873,3 @@ service BCS-daemon /system/bin/connfwexe
     user root
     group system radio inet net_raw
 # end of RIL
-
-# for Bluetooth Tethering
-service dhcpcd_bt-pan /system/bin/dhcpcd -ABKL
-    class main
-    disabled
-    oneshot
-
-service iprenew_bt-pan /system/bin/dhcpcd -n
-    class late_start
-    disabled
-    oneshot
-# end of BT
-
-on property:sys.boot_completed=1
-    write /sys/block/mmcblk0/queue/scheduler cfq
