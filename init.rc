@@ -873,15 +873,3 @@ service BCS-daemon /system/bin/connfwexe
     user root
     group system radio inet net_raw
 # end of RIL
-
-# for Bluetooth Tethering
-service dhcpcd_bt-pan /system/bin/dhcpcd -ABKL
-    class main
-    disabled
-    oneshot
-
-service iprenew_bt-pan /system/bin/dhcpcd -n
-    class late_start
-    disabled
-    oneshot
-# end of BT
